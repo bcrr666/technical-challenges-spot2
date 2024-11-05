@@ -1,15 +1,17 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API Title",
-        "description": "API description",
+        "title": "Prueba Tecnica Spot2",
+        "description": "",
         "version": "1.0.0"
     },
     "paths": {
         "/price-m2/zip-codes/{zipCode}/aggregate/{type}": {
             "get": {
-                "summary": "Get aggregated price data",
-                "description": "Returns aggregated price data for a given zip code and type",
+                "tags": [
+                    "Precio por M2"
+                ],
+                "description": "Permite obtener el precio por m2",
                 "operationId": "3f7bae6cfa3d06e7df0971a2cfd3bab9",
                 "parameters": [
                     {
@@ -147,5 +149,11 @@
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Precio por M2",
+            "description": "Precio por M2"
+        }
+    ]
 }

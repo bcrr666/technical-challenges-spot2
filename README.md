@@ -21,54 +21,13 @@ El proyecto esta construido con el framework laravel en su version 11 (https://l
 #### Ejecutar pruebas
 `php artisan test`
 
-## Documentacion - Obtener precio por M2
+## Arquitectura de Software y Patrones de diseño
+"Para el desarrollo de la API se utilizó la arquitectura orientada a servicios debido a su sencillo acoplamiento con la metodología TDD. Este enfoque no solo permite que cada servicio sea independiente y autónomo, sino que también facilita la creación de pruebas unitarias y de integración en fases tempranas del desarrollo. Al desarrollar cada componente de manera aislada, TDD asegura que los servicios funcionen correctamente desde el inicio, lo cual reduce los errores en producción y hace que el proceso de integración sea más eficiente.
 
-### Busqueda de peliculas
-La busqueda consta de  campo necesario:
+## Despliegue
+El proyecto fue desplegado en AWS haciendo uso de la capa gratuita, la url de la API es la siguiente:
+- https://spot2.atechlatam.xyz/price-m2/zip-codes/011210/aggregate/min?uso_construccion=4
 
-* uso_construccion
-
-#### Endpoint
-`Type: GET`
-`/price-m2/zip-codes/{zip_code}/aggregate/{max|min|avg}?construction_type={1-7}`
-
-
-#### Respuesta
-`200 Success - PROMEDIO`
-```js
-{
-    "status": true,
-    "payload": {
-        "type": "avg",
-        "price_unit": 1420,
-        "price_unit_construction": 3120,
-        "elements": 100
-    }
-}
-```
-
-`200 Success - MÁXIMO`
-```js
-{
-    "status": true,
-    "payload": {
-        "type": "max",
-        "price_unit": 4520,
-        "price_unit_construction": 5120,
-        "elements": 80
-    }
-}
-```
-
-`200 Success - MÍNIMO`
-```js
-{
-    "status": true,
-    "payload": {
-        "type": "min",
-        "price_unit": 1250,
-        "price_unit_construction": 2120,
-        "elements": 60
-    }
-}
-```
+## Documentación
+La documentacion puede ser consultada en el siguiente enlace:
+- https://spot2.atechlatam.xyz/api/documentation

@@ -8,9 +8,9 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(
- *     title="API Title",
+ *     title="Prueba Tecnica Spot2",
  *     version="1.0.0",
- *     description="API description"
+ *     description=""
  * )
  */
 class Controller extends BaseController

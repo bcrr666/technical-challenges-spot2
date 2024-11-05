@@ -11,8 +11,8 @@ class CadastreController extends Controller
     /**
      * @OA\Get(
      *     path="/price-m2/zip-codes/{zipCode}/aggregate/{type}",
-     *     summary="Get aggregated price data",
-     *     description="Returns aggregated price data for a given zip code and type",
+     *     tags={"Precio por M2"},
+     *     description="Permite obtener el precio por m2",
      *     @OA\Parameter(
      *         name="zipCode",
      *         in="path",
