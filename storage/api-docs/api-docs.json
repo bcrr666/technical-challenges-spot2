@@ -1,0 +1,96 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Title",
+        "description": "API description",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/price-m2/zip-codes/{zipCode}/aggregate/{type}": {
+            "get": {
+                "summary": "Get aggregated price data",
+                "description": "Returns aggregated price data for a given zip code and type",
+                "operationId": "3f7bae6cfa3d06e7df0971a2cfd3bab9",
+                "parameters": [
+                    {
+                        "name": "zipCode",
+                        "in": "path",
+                        "description": "Zip code to fetch data for (string)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type of aggregation (min, max, avg)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "min",
+                                "max",
+                                "avg"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "uso_construccion",
+                        "in": "query",
+                        "description": "Usage construction parameter (1 to 7)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 7,
+                            "minimum": 1,
+                            "example": 3
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "payload": {
+                                            "properties": {
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "avg"
+                                                },
+                                                "price_unit": {
+                                                    "type": "integer",
+                                                    "example": 1420
+                                                },
+                                                "price_unit_construction": {
+                                                    "type": "integer",
+                                                    "example": 3120
+                                                },
+                                                "elements": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Data not found"
+                    }
+                }
+            }
+        }
+    }
+}
