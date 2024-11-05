@@ -12,6 +12,12 @@ El proyecto esta construido con el framework laravel en su version 11 (https://l
 #### Instalar dependencias
 `composer install`
 
+#### Generar llave del proyecto
+`php artisan key:generate`
+
+#### Ejecutar migraciones
+`php artisan migrate`
+
 #### Ejecutar pruebas
 `php artisan test`
 
