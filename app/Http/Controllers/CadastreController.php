@@ -50,24 +50,61 @@ class CadastreController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Data not found",
+     *         description="No results found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status", type="boolean", example=false),
+     *             @OA\Property(property="error", type="string", example="Sin resultados para mostrar.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity: Invalid input",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             oneOf={
+     *                 @OA\Schema(
+     *                     @OA\Property(property="status", type="boolean", example=false),
+     *                     @OA\Property(property="error", type="string", example="El uso_construccion es inválido.")
+     *                 ),
+     *                 @OA\Schema(
+     *                     @OA\Property(property="status", type="boolean", example=false),
+     *                     @OA\Property(property="error", type="string", example="El aggregate es inválido.")
+     *                 )
+     *             }
+     *         )
      *     )
      * )
      */
     public function getPriceM2(string $postalCode, $type, Request $request)
     {
+        $constructionUseId = $request->uso_construccion;
+        $constructionUseIds = array_keys(Cadastre::CONSTRUCTION_USES);
+
+        if (!in_array($constructionUseId, $constructionUseIds)) {
+            return response()->services(null, 422, 'El uso_construccion es inválido.');
+        }
+
+        if (!in_array($type, Cadastre::AGGREGATE_TYPES)) {
+            return response()->services(null, 422, 'El aggregate es inválido.');
+        }
+
         $cadastres = CadastreService::getFilteredCadastres($postalCode, $request->uso_construccion);
+
+        if ($cadastres->count() == 0) {
+            return response()->services(null, 404, 'Sin resultados para mostrar.');
+        }
+
         $resultCadastres = CadastreService::generateResults($cadastres);
         $calculateResult = CadastreService::calculateByType($type, $resultCadastres);
 
-        return [
-            "status" => true,
-            "payload" => [
-                "type" => $type,
-                "price_unit" => $calculateResult['price_unit'],
-                "price_unit_construction" => $calculateResult['price_unit_construction'],
-                "elements" => $cadastres->count()
-            ]
+        $payload = [
+            "type" => $type,
+            "price_unit" => $calculateResult['price_unit'],
+            "price_unit_construction" => $calculateResult['price_unit_construction'],
+            "elements" => $cadastres->count()
         ];
+
+        return response()->services($payload);
     }
 }

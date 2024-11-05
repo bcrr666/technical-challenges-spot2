@@ -9,6 +9,9 @@ class Cadastre extends Model
 {
     use HasFactory;
 
+    /**
+     * Usos de construccion
+     */
     const CONSTRUCTION_USE_GREEN_AREAS = 1;
     const CONSTRUCTION_USE_NEIGHBORHOOD_CENTER = 2;
     const CONSTRUCTION_USE_EQUIPMENT = 3;
@@ -26,4 +29,6 @@ class Cadastre extends Model
         6 => ['Industrial'],
         7 => ['Sin Zonificación'],
     ];
+
+    const AGGREGATE_TYPES = ['min', 'max', 'avg'];
 };
