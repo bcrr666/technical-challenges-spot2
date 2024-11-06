@@ -10,7 +10,8 @@ class CadastreService
     public static function getFilteredCadastres($postalCode, $constructionUseId)
     {
         $cadastres = Cadastre::where('postal_code', $postalCode)
-            ->whereNotNull('land_value');
+            ->whereNotNull('land_value')
+            ->where('construction_area', '>', 0);
 
         if (empty($constructionUseId)) {
             return $cadastres->get();
@@ -29,8 +30,8 @@ class CadastreService
         return $cadastres->each(function ($cadastre, $key) {
             $landValue = $cadastre->land_value;
             $subsidy = $cadastre->subsidy;
-            $cadastre->price_unit = ($cadastre->land_area / $landValue) - $subsidy;
-            $cadastre->price_unit_construction = ($cadastre->construction_area / $landValue) - $subsidy;
+            $cadastre->price_unit = ($landValue / $cadastre->land_area) - $subsidy;
+            $cadastre->price_unit_construction = ($landValue / $cadastre->construction_area) - $subsidy;
         });
     }
 
