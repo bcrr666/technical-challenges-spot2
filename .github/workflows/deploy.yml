@@ -22,7 +22,8 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           cd ${{ secrets.DEPLOY_PATH }}
-          git pull
-          composer install --no-dev
-          php artisan migrate --force
+          sudo git checkout -- .
+          sudo git pull
+          sudo composer install --no-dev
+          sudo php artisan migrate --force
         EOF
